@@ -43,7 +43,12 @@ TeeSettings::~TeeSettings()
 
 void TeeSettings::on_pushButton_clicked()
 {
-	QString fileName = QFileDialog::getOpenFileName(this, tr("Teewars location"), "", tr("exe files (*.exe)"));
+	QString fileName;
+#if defined(Q_WS_WIN32) || defined(Q_WS_WIN64)
+	fileName = QFileDialog::getOpenFileName(this, tr("Teewars location"), "", tr("exe files (*.exe)"));
+#else
+	fileName = QFileDialog::getOpenFileName(this, tr("Teewars location"), "");
+#endif
 	ui.lineEdit->setText(fileName);
 	QSettings settings(COMPANYNAME, APPNAME);
 	settings.setValue(TEEWARSPATHKEY, fileName);

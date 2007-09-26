@@ -5,10 +5,16 @@ TEMPLATE = app
 TARGET = teeSrvChecker
 DESTDIR = ./debug
 QT += network
-CONFIG += windows debug release
-RC_FILE = teeSrvChecker.rc
-LIBS += -lkernel32 -luser32 -lshell32 -luuid -lole32 -ladvapi32 -lws2_32 -lqtmain
-DEFINES += UNICODE WIN32 QT_THREAD_SUPPORT QT_CORE_LIB QT_GUI_LIB
+
+win32 {
+  CONFIG += windows
+  RC_FILE = teeSrvChecker.rc
+  LIBS += -lkernel32 -luser32 -lshell32 -luuid -lole32 -ladvapi32 -lws2_32 -lqtmain
+  DEFINES += WIN32
+}
+
+CONFIG += debug release
+DEFINES += UNICODE QT_THREAD_SUPPORT QT_CORE_LIB QT_GUI_LIB
 INCLUDEPATH += ./GeneratedFiles \
     ./GeneratedFiles/Debug \
     .
