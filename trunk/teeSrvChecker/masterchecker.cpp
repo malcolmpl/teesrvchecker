@@ -52,13 +52,16 @@ void masterChecker::run()
 void masterChecker::updateServersList()
 {
 	teeHeader header;
-	header.proto_id = PROTO_ID;
+	header.flags = NETWORK_PACKETFLAG_CONNLESS;
+	header.sequencing = SEQUENCING;
+	header.ack = ACK;
+	header.token = TOKEN;
 	header.dummy1 = DUMMY1;
-	header.dummy2 = DUMMY2;
 	header.packet_id = REQT;
 	QByteArray datagram;
 	QDataStream out(&datagram, QIODevice::WriteOnly);
-	out << header.proto_id << header.dummy1 << header.dummy2 << header.packet_id;
+	out << header.flags << header.sequencing << header.ack
+		<< header.token << header.dummy1 << header.packet_id;
 	masterSocket->writeDatagram(datagram, QHostAddress(MASTERSERVERIP), MASTERSERVERPORT);
 	QTimer::singleShot(MASTER_SERVER_TIMER, this, SLOT(updateServersList()));
 }
@@ -79,7 +82,7 @@ void masterChecker::readMasterDiagrams()
 
 		QDataStream in(&datagram, QIODevice::ReadOnly);
 		teeHeader header;
-		in >> header.proto_id >> header.dummy1 >> header.dummy2 >> header.packet_id;
+		in >> header.flags >> header.sequencing >> header.ack >> header.token >> header.dummy1 >> header.packet_id;
 
 		if(header.packet_id == LIST)
 		{

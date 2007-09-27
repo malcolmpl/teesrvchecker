@@ -2,8 +2,8 @@
 #define TSVN_VERMAJOR_STR "0"
 #define TSVN_VERMINOR      1
 #define TSVN_VERMINOR_STR "1"
-#define TSVN_VERMICRO      2
-#define TSVN_VERMICRO_STR "2"
+#define TSVN_VERMICRO      3
+#define TSVN_VERMICRO_STR "3"
 #define TSVN_VERBUILD     $WCREV$
 #define TSVN_VERBUILD_STR "$WCREV$"
 #define TSVN_VERDATE      "$WCDATE$"
