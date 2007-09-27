@@ -40,7 +40,6 @@ const QString MAX_IP						= "255.255.255.255:65535";
 
 const QString MASTERSERVERIP				= "82.196.163.133";
 const quint16 MASTERSERVERPORT				= 8383;
-//const quint32 DUMMY1						= 0x00000000;
 const quint32 DUMMY1						= 0xffffffff;
 
 const quint8 NETWORK_PACKETFLAG_CONNECT		= 0x01; // set when a connection should be made
