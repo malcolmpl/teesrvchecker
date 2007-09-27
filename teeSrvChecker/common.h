@@ -30,39 +30,51 @@ THE SOFTWARE.
 #include <QEvent>
 #include "VersionNo.h"
 
-const QString APPVERSION				= TSVN_VERMAJOR_STR "." TSVN_VERMINOR_STR "." TSVN_VERMICRO_STR " rev. " TSVN_VERBUILD_STR;
-const QString COMPANYNAME				= "sourcecode.pl";
-const QString APPNAME					= "teeWars Server Checker";
-const QString TEEWARSPATHKEY			= "application/teewarspath";
-const QString RESOURCE_ICON				= "res\\icon.png";
-const QString WINDOW_TITLE				= "teeWars Servers Checker ver: ";
-const QString MAX_IP					= "255.255.255.255:65535";
+const QString APPVERSION					= TSVN_VERMAJOR_STR "." TSVN_VERMINOR_STR "." TSVN_VERMICRO_STR " rev. " TSVN_VERBUILD_STR;
+const QString COMPANYNAME					= "sourcecode.pl";
+const QString APPNAME						= "teeWars Server Checker";
+const QString TEEWARSPATHKEY				= "application/teewarspath";
+const QString RESOURCE_ICON					= "res\\icon.png";
+const QString WINDOW_TITLE					= "teeWars Servers Checker ver: ";
+const QString MAX_IP						= "255.255.255.255:65535";
 
-const QString MASTERSERVERIP			= "82.196.163.133";
-const quint16 MASTERSERVERPORT			= 8383;
-const quint32 DUMMY1					= 0x00000000;
-const quint32 DUMMY2					= 0xffffffff;
+const QString MASTERSERVERIP				= "82.196.163.133";
+const quint16 MASTERSERVERPORT				= 8383;
+//const quint32 DUMMY1						= 0x00000000;
+const quint32 DUMMY1						= 0xffffffff;
 
-const quint32 GIEF						= 0x67696566;
-const quint32 INFO						= 0x696e666f;
-const quint32 REQT						= 0x72657174;
-const quint32 LIST						= 0x6c697374;
-const quint16 PROTO_ID					= 0x2000;
+const quint8 NETWORK_PACKETFLAG_CONNECT		= 0x01; // set when a connection should be made
+const quint8 NETWORK_PACKETFLAG_ACCEPT		= 0x02; // set when a connection is accepted
+const quint8 NETWORK_PACKETFLAG_CLOSE		= 0x04; // set when a connection should be closed
+const quint8 NETWORK_PACKETFLAG_VITAL		= 0x08; // set when this packet is vital and should not get lost
+const quint8 NETWORK_PACKETFLAG_RESEND		= 0x10; // set when the peer is requesting a resend of non-acked vital packages
+const quint8 NETWORK_PACKETFLAG_CONNLESS	= 0x20; // used for stateless communication, like the server browser
 
-const int GAME_SERVER_TIMER				= 2000;
-const int GAME_SERVER_ALTERNATE_TIMER	= 1000;
-const int WINDOW_WIDTH					= 599;
-const int WINDOW_HEIGHT					= 400;
-const int MIN_PING_TO_RED_COLOR			= 100;
-const int MASTER_SERVER_TIMER			= 30000;
-const int WAIT_FOR_READ_DATAGRAM		= 1000;
-const int WAIT_FOR_CONNECTED			= 100;
+const quint16 SEQUENCING					= 0x0000;
+const quint8 ACK							= 0x00;
+const quint16 TOKEN							= 0x0000;
+
+const quint32 GIEF							= 0x67696566;
+const quint32 INFO							= 0x696e666f;
+const quint32 REQT							= 0x72657174;
+const quint32 LIST							= 0x6c697374;
+
+const int GAME_SERVER_TIMER					= 2000;
+const int GAME_SERVER_ALTERNATE_TIMER		= 1000;
+const int WINDOW_WIDTH						= 599;
+const int WINDOW_HEIGHT						= 400;
+const int MIN_PING_TO_RED_COLOR				= 100;
+const int MASTER_SERVER_TIMER				= 30000;
+const int WAIT_FOR_READ_DATAGRAM			= 1000;
+const int WAIT_FOR_CONNECTED				= 100;
 
 struct teeHeader
 {
-	quint16 proto_id;
+	quint8 flags;
+	quint16 sequencing;
+	quint8 ack;
+	quint16 token;
 	quint32 dummy1;
-	quint32 dummy2;
 	quint32 packet_id;
 };
 
